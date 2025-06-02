@@ -1,0 +1,12 @@
+{
+  "name": "template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Emil_Domagala_Homework2.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --watch Emil_Domagala_Homework2.ts"
+  },
+  "author": "",
+  "license": "ISC"
+}
