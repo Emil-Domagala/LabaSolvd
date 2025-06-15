@@ -23,9 +23,23 @@ class Task2 {
   getFullName(person: Person) {
     return `${person.firstName} ${person.lastName}`;
   }
-  filterUnniqueWords(words: string[]) {
-    const uniqueWords = new Set<string>(words);
-    return Array.from(uniqueWords).sort();
+  filterUnniqueWords(words: string[] | string) {
+    if (words.length == 0) return [];
+    switch (typeof words) {
+      case 'object':
+        // If working with array transform words to lowercase
+        words = words.map((word) => word.toLowerCase());
+        break;
+      case 'string':
+        // If working with string, transfrom to lowercase b4 changing to array and then create array
+        words = words.toLowerCase().split(' ');
+        break;
+      default:
+        throw new Error('Invalid input type');
+    }
+
+    // filter duplicates and sort
+    return Array.from(new Set(words)).sort();
   }
   getAverageGrade(students: Student[]) {
     const totalGrades = students.reduce((acc, student) => {
@@ -37,6 +51,8 @@ class Task2 {
 }
 
 const task2 = new Task2();
+
+console.log(task2.filterUnniqueWords('Hello world!'));
 
 class Task3 {
   public isStopped = false;
@@ -121,15 +137,3 @@ class Task5 {
 
 const task5 = new Task5();
 const fib = task5.fibonacciGenerator();
-
-console.log(fib.next());
-console.log(fib.next());
-console.log(fib.next());
-console.log(fib.next());
-
-console.log('LAZY:::');
-const lazy = task5.lazyMap([1, 2, 3], (x) => x * 2);
-console.log(lazy.next());
-console.log(lazy.next());
-console.log(lazy.next());
-console.log(lazy.next());
