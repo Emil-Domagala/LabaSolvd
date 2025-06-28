@@ -1,0 +1,19 @@
+{
+  "name": "template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Emil_Domagala_Homework2.js",
+  "scripts": {
+    "test": "vitest",
+    "dev": "node --watch ex5/Emil_Domagala_Homework5.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "jest": "^30.0.2",
+    "ts-jest": "^29.4.0",
+    "ts-node": "^10.9.2",
+    "vitest": "^3.2.4"
+  }
+}
