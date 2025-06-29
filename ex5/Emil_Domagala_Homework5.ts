@@ -18,6 +18,9 @@ export const task5_1 = new Task5_1();
 
 class Task5_2 {
   chunkArray<T>(arr: T[], size: number): T[][] {
+    if (size < 1) throw new Error('Size must be greater than 1');
+    if (!Number.isInteger(size)) throw new Error('Size must not be decimal');
+
     const result: T[][] = [];
     for (let i = 0; i < arr.length; i += size) {
       const chunk: T[] = [];
@@ -35,6 +38,7 @@ export const task5_2 = new Task5_2();
 
 class Task5_3 {
   customShuffle<T>(arr: T[]): T[] {
+    if (arr.length <= 1) return arr;
     const copy = [...arr];
     const len = copy.length;
     for (let i = len - 1; i > 0; i--) {
@@ -64,6 +68,8 @@ class Task5_4 {
     /* I understand this assigment that i need to take all unique elements from array 1 and array 2 
     and then combine them into one big array while getting rid of all duplicates
     */
+    if (arr1.length === 0 || arr2.length === 0) return [];
+
     const map1 = new Map<T, number>();
     const map2 = new Map<T, number>();
 
@@ -98,34 +104,38 @@ class Task5_5 {
 
 export const task5_5 = new Task5_5();
 
-const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-const arr2 = [1, 2, 3, 3, 3];
-const arrObj = [{ val: 1 }, { val: 2 }, { val: 2 }, { val: 3 }, { val: 4 }, { val: 5 }, { val: 6 }, { val: 7 }];
+const comparePerformance = () => {
+  const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const arr2 = [1, 2, 3, 3, 3];
+  const arrObj = [{ val: 1 }, { val: 2 }, { val: 2 }, { val: 3 }, { val: 4 }, { val: 5 }, { val: 6 }, { val: 7 }];
 
-// @ts-ignore
-const customFilterUniqueFn = (arr) => task5_1.customFilterUnique(arr, (item) => item.val);
-// @ts-ignore
-const chunkArrayFn = (arr) => task5_2.chunkArray(arr, 3);
-// @ts-ignore
-const getArrayIntersectionFn = (arr) => task5_4.getArrayIntersection(arr, arr2);
-// @ts-ignore
-const getArrayUnionFn = (arr) => task5_4.getArrayUnion(arr, arr2);
+  // @ts-ignore
+  const customFilterUniqueFn = (arr) => task5_1.customFilterUnique(arr, (item) => item.val);
+  // @ts-ignore
+  const chunkArrayFn = (arr) => task5_2.chunkArray(arr, 3);
+  // @ts-ignore
+  const getArrayIntersectionFn = (arr) => task5_4.getArrayIntersection(arr, arr2);
+  // @ts-ignore
+  const getArrayUnionFn = (arr) => task5_4.getArrayUnion(arr, arr2);
 
-const customFilterUniqueM = task5_5.measureArrayPerformance(arrObj, customFilterUniqueFn);
-const chunkArrayM = task5_5.measureArrayPerformance(arr, chunkArrayFn);
-const customShuffleM = task5_5.measureArrayPerformance(arr, (arr) => task5_3.customShuffle(arr));
-const getArrayIntersectionM = task5_5.measureArrayPerformance(arr, getArrayIntersectionFn);
-const getArrayUnionM = task5_5.measureArrayPerformance(arr, getArrayUnionFn);
+  const customFilterUniqueM = task5_5.measureArrayPerformance(arrObj, customFilterUniqueFn);
+  const chunkArrayM = task5_5.measureArrayPerformance(arr, chunkArrayFn);
+  const customShuffleM = task5_5.measureArrayPerformance(arr, (arr) => task5_3.customShuffle(arr));
+  const getArrayIntersectionM = task5_5.measureArrayPerformance(arr, getArrayIntersectionFn);
+  const getArrayUnionM = task5_5.measureArrayPerformance(arr, getArrayUnionFn);
 
-const mapM = task5_5.measureArrayPerformance(arr, (arr) => arr.map((x) => x * 2));
-const filterM = task5_5.measureArrayPerformance(arr, (arr) => arr.filter((x) => x % 2 === 0));
-const reduceM = task5_5.measureArrayPerformance(arr, (arr) => arr.reduce((a, b) => a + b, 0));
+  const mapM = task5_5.measureArrayPerformance(arr, (arr) => arr.map((x) => x * 2));
+  const filterM = task5_5.measureArrayPerformance(arr, (arr) => arr.filter((x) => x % 2 === 0));
+  const reduceM = task5_5.measureArrayPerformance(arr, (arr) => arr.reduce((a, b) => a + b, 0));
 
-console.log('customFilterUniqueM', customFilterUniqueM);
-console.log('chunkArrayM', chunkArrayM);
-console.log('customShuffleM', customShuffleM);
-console.log('getArrayIntersectionM', getArrayIntersectionM);
-console.log('getArrayUnionM', getArrayUnionM);
-console.log('mapM', mapM);
-console.log('filterM', filterM);
-console.log('reduceM', reduceM);
+  console.log('customFilterUniqueM', customFilterUniqueM);
+  console.log('chunkArrayM', chunkArrayM);
+  console.log('customShuffleM', customShuffleM);
+  console.log('getArrayIntersectionM', getArrayIntersectionM);
+  console.log('getArrayUnionM', getArrayUnionM);
+  console.log('mapM', mapM);
+  console.log('filterM', filterM);
+  console.log('reduceM', reduceM);
+};
+
+// comparePerformance(); // uncomment to log results
