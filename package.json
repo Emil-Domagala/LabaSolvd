@@ -5,7 +5,7 @@
   "main": "Emil_Domagala_Homework2.js",
   "scripts": {
     "test": "vitest",
-    "dev": "node --watch ex5/Emil_Domagala_Homework5.ts"
+    "dev": "node --watch ex6/Emil_Domagala_Homework6.ts"
   },
   "author": "",
   "license": "ISC",
