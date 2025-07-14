@@ -10,9 +10,5 @@ test('should return correct output', () => {
 2.   line1
 3.   line2
 4.   line3`;
-  console.log('expect: ');
-  console.log(expected);
-  console.log('t6_3.multiline(str): ');
-  console.log(t6_3.multiline(str));
   expect(t6_3.multiline(str)).toBe(expected);
 });

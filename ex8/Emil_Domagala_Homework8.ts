@@ -64,16 +64,16 @@ export class NonFictionBook extends Book {
 }
 
 export class User {
-  private id: number;
+  private id: string;
   private name: string;
   private email: string;
 
-  constructor(id: number, name: string, email: string) {
-    this.id = id;
+  constructor(name: string, email: string) {
+    this.id = new  Date().toString();
     this.name = name;
     this.email = email;
   }
-  getId(): number {
+  getId(): string {
     return this.id;
   }
 

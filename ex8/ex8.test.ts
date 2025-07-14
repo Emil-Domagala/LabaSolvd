@@ -8,8 +8,12 @@ test('scome scenario works', async () => {
   const book3 = new FictionBook('1984', 'George Orwell', '978-0-452-28423-4', 12.0, true);
 
   //   Creates users
-  const user1 = new User(1, 'Alice', 'alice@example.com');
+  const user1 = new User('Alice', 'alice@example.com');
+  const user2 = new User('Bob', 'bob@example.com');
 
+  // Creates orders
+
+  const bobCart = new Cart();
   const aliceCart = new Cart();
   expect(aliceCart.addItem(book1)).toBe('Item added to cart');
   expect(aliceCart.addItem(book2)).toBe('This book is not available');
@@ -20,4 +24,8 @@ test('scome scenario works', async () => {
   expect(aliceOrder.getTotalPrice()).toBe(27.0);
   expect(aliceOrder.getUser()).toBe(user1);
   expect(aliceOrder.getCart()).toBe(aliceCart);
+
+  expect(bobCart.addItem(book2)).toBe('This book is not available');
+  book2.setAvailability(true);
+  expect(bobCart.addItem(book2)).toBe('Item added to cart');
 });
