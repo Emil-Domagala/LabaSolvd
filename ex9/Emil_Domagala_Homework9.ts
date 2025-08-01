@@ -52,7 +52,7 @@ export class Stack<T extends number | string> {
 }
 
 export class Queue<T> {
-  private values: T[]=[];
+  private values: T[] = [];
   constructor() {}
   enqueue(value: T): void {
     this.values.push(value);
@@ -66,19 +66,25 @@ export class Queue<T> {
   peek(): T | undefined {
     return this.values[0];
   }
-
 }
+
 export class BinaryTree<T> {
   value: T;
   left: BinaryTree<T> | null;
   right: BinaryTree<T> | null;
 }
 export class Graph<T> {
-  value: T;
+  private value: T;
   private edges: Graph<T>[];
   constructor(value: T) {
     this.value = value;
     this.edges = [];
+  }
+  getValue(): T {
+    return this.value;
+  }
+  setValue(value: T): void {
+    this.value = value;
   }
   addEdge(edge: Graph<T>): void {
     this.edges.push(edge);
@@ -87,11 +93,84 @@ export class Graph<T> {
     return this.edges;
   }
 }
-export class LinkedList<T> {
+
+// LINKED LIST
+
+export class Node<T> {
   value: T;
-  next: LinkedList<T> | null;
+  next: Node<T> | null;
   constructor(value: T) {
     this.value = value;
     this.next = null;
+  }
+}
+
+export class SinglyLinkedList<T> {
+  head: Node<T> | null = null;
+  length: number = 0;
+  constructor() {}
+  insert(value: T): void {
+    const newNode = new Node(value);
+    // If no head create it
+    if (!this.head) {
+      this.head = newNode;
+      this.length++;
+      return;
+    }
+    let curr = this.head;
+    // Find last node
+    while (curr.next) {
+      curr = curr.next;
+    }
+    // Insert new node at the end
+    curr.next = newNode;
+    this.length++;
+  }
+  remove(value: T): void {
+    if (!this.head) return;
+    // If deleted node is head drop link and setup new head
+    if (this.head.value === value) {
+      this.head = this.head.next;
+      this.length--;
+      return;
+    }
+    // If deleted node is in the middle drop link from prev
+    let curr: Node<T> | null = this.head;
+    let prev: Node<T> | null = null;
+    while (curr) {
+      if (curr.value === value) {
+        prev!.next = curr.next;
+        curr.next = null;
+        this.length--;
+        return;
+      }
+      prev = curr;
+      curr = curr.next;
+    }
+  }
+  search(value: T): Node<T> | null {
+    if (!this.head) return null;
+
+    let curr: Node<T> | null = this.head;
+    while (curr) {
+      if (curr.value === value) return curr;
+      curr = curr.next;
+    }
+
+    return null;
+  }
+  isCycle(): boolean {
+    if (!this.head) return false;
+
+    let slow = this.head;
+    let fast: Node<T> | null = this.head;
+
+    while (fast && fast.next) {
+      slow = slow.next!;
+      fast = fast.next.next;
+      if (slow === fast) return true;
+    }
+
+    return false;
   }
 }
