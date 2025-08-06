@@ -50,6 +50,7 @@ export class Stack<T extends number | string> {
     return this.values.length === 0;
   }
 }
+// QUEUE
 
 export class Queue<T> {
   private values: T[] = [];
@@ -68,11 +69,100 @@ export class Queue<T> {
   }
 }
 
-export class BinaryTree<T> {
+// Tree
+
+export class TreeNode<T> {
   value: T;
-  left: BinaryTree<T> | null;
-  right: BinaryTree<T> | null;
+  left: TreeNode<T> | null;
+  right: TreeNode<T> | null;
+  constructor(value: T) {
+    this.value = value;
+    this.left = null;
+    this.right = null;
+  }
 }
+
+export class BinaryTree<T> {
+  root: TreeNode<T> | null;
+
+  constructor() {
+    this.root = null;
+  }
+
+  insert(value: T): void {
+    const newNode = new TreeNode(value);
+    if (!this.root) {
+      this.root = newNode;
+      return;
+    }
+
+    const queue: (TreeNode<T> | null)[] = [this.root];
+    while (queue.length > 0) {
+      const curr = queue.shift()!;
+      if (!curr.left) {
+        curr.left = newNode;
+        return;
+      } else if (!curr.right) {
+        curr.right = newNode;
+        return;
+      } else {
+        queue.push(curr.left);
+        queue.push(curr.right);
+      }
+    }
+  }
+
+  // DFS Search (returns first match)
+  search(value: T): TreeNode<T> | null {
+    if (!this.root) return null;
+
+    const stack: TreeNode<T>[] = [this.root];
+    while (stack.length > 0) {
+      const curr = stack.pop()!;
+      if (curr.value === value) return curr;
+      if (curr.right) stack.push(curr.right);
+      if (curr.left) stack.push(curr.left);
+    }
+
+    return null;
+  }
+
+  // In-order Traversal (Left -> Root -> Right)
+  inOrder(node: TreeNode<T> | null = this.root, result: T[] = []): T[] {
+    if (!node) return result;
+    this.inOrder(node.left, result);
+    result.push(node.value);
+    this.inOrder(node.right, result);
+    return result;
+  }
+
+  // Pre-order Traversal (Root -> Left -> Right)
+  preOrder(node: TreeNode<T> | null = this.root, result: T[] = []): T[] {
+    if (!node) return result;
+    result.push(node.value);
+    this.preOrder(node.left, result);
+    this.preOrder(node.right, result);
+    return result;
+  }
+
+  // Post-order Traversal (Left -> Right -> Root)
+  postOrder(node: TreeNode<T> | null = this.root, result: T[] = []): T[] {
+    if (!node) return result;
+    this.postOrder(node.left, result);
+    this.postOrder(node.right, result);
+    result.push(node.value);
+    return result;
+  }
+
+  isBST(node: TreeNode<number> | null, min: number = -Infinity, max: number = Infinity): boolean {
+    if (!node) return true;
+
+    if (node.value <= min || node.value >= max) return false;
+
+    return this.isBST(node.left, min, node.value) && this.isBST(node.right, node.value, max);
+  }
+}
+
 export class Graph<T> {
   private value: T;
   private edges: Graph<T>[];
