@@ -4,6 +4,7 @@
   "description": "",
   "main": "Emil_Domagala_Homework2.js",
   "scripts": {
+    "test:watch": "vitest --watch",
     "test": "vitest",
     "dev": "node --watch ex6/Emil_Domagala_Homework6.ts"
   },
