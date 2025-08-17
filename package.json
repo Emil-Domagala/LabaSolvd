@@ -6,7 +6,7 @@
   "scripts": {
     "test:watch": "vitest --watch",
     "test": "vitest",
-    "dev": "node --watch ex6/Emil_Domagala_Homework6.ts"
+    "dev": "node --watch ex10/Emil_Domagala_Homework10.ts"
   },
   "author": "",
   "license": "ISC",
